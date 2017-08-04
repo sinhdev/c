@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main(int count, char* args[])
 {
     printf("The number 555 in various forms:\n");
 	printf("Without any modifier: \n");

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main(int count, char* args[])
 {
     putchar('H');   putchar('\n');
 	putchar('\t');

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main(int count, char* args[])
 {
     int i;
     printf("Input an integer number: ");

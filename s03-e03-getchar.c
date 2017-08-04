@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main(int count, char* args[])
 {
     char letter;
 	printf("\nPlease enter any character:");
