@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <string.h>
  
-struct Books{
+struct Book{
     char isbn[15];
 	char title[50];
 	char author[50];
 	float price;
 };
 
-void printBook(struct Books book);
+void printBookDetails(struct Book book);
 
 int main( ) {
-   struct Books book1;        /* Declare Book1 of type Book */
-   struct Books book2;        /* Declare Book2 of type Book */
+   struct Book book1;        /* Declare Book1 of type Book */
+   struct Book book2;        /* Declare Book2 of type Book */
  
    /* book 1 specification */
    strcpy(book1.isbn, "978-0131103627");
@@ -27,16 +27,17 @@ int main( ) {
    book2.price = 24.32;
  
    /* print Book1 info */
-   printBook(book1);
+   printBookDetails(book1);
    /* print Book2 info */
-   printBook(book2);
+   printBookDetails(book2);
 
    return 0;
 }
 
-void printBook(struct Books book){
-   printf( "Book isbn: %s\n", book.isbn);
-   printf( "Book title: %s\n", book.title);
-   printf( "Book author: %s\n", book.author);
-   printf( "Book price: %.2f\n", book.price);
+void printBookDetails(struct Book book){
+   printf("=================================================\n");
+   printf("Book isbn: %s\n", book.isbn);
+   printf("Book title: %s\n", book.title);
+   printf("Book author: %s\n", book.author);
+   printf("Book price: %.2f\n", book.price);
 }

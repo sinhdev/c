@@ -6,16 +6,15 @@ typedef struct{
 	char title[51];
 	char author[51];
 	float price;
-}Books;
+}Book;
 
-void printBook(Books book);
-Books getBook();
+void printBook(Book book);
+void printBooks(Book *books, int count);
+Book getBook();
 void getString(char *str, int length);
-void printLine();
-void printTitle();
 
 int main( ) {
-    Books books[3] = {
+    Book books[3] = {
 		{"9780131103627","The C Programming Language","Dennis Ritchie",52.89},
 		{"9780789751980","C Programming for Beginner","Dean Miller",24.32}
     };
@@ -24,17 +23,13 @@ int main( ) {
     printf("Input book 3:\n");
     books[2] = getBook();
    
-    printTitle();
-    for(i=0; i<count; i++){
-        printBook(books[i]);
-    }
-    printLine();
+    printBooks(books, count);
 
     return 0;
 }
 
-Books getBook(){
-    Books book;
+Book getBook(){
+    Book book;
     printf("Input Book isbn: ");
     getString(book.isbn, 14);
     printf("Input Book title: ");
@@ -46,19 +41,21 @@ Books getBook(){
     return book;
 }
 
-void printBook(Books book){
+void printBook(Book book){
     printf( "| %-14s | %-26s | %-20s | %6.2f |\n",
            book.isbn, book.title, book.author, book.price);
 }
-void printLine(){
+void printBooks(Book *books, int count){
     printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
         "--------------------------", "--------------------", "------");
-}
-void printTitle(){
-    printLine();
-    printf( "| %-14s | %-26s | %-20s | %-6s |\n", "isbn", "Title",
-        "Author", "Price");
-    printLine();
+    printf( "| %-14s | %-26s | %-20s | %-6s |\n", "isbn", "Title", "Author", "Price");
+    printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
+        "--------------------------", "--------------------", "------");
+    for(int i=0; i<count; i++){
+        printBook(books[i]);
+    }
+    printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
+        "--------------------------", "--------------------", "------");
 }
 void getString(char *str, int length){
     //clear keyboard buffer on UNIX

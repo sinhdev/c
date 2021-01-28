@@ -5,7 +5,7 @@ int main()
 {
     FILE *f;
     
-    f = fopen("s13-e01.c", "r");
+    f = fopen("text.txt", "r");
     
     if(f != NULL){
         char str[81];

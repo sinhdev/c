@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
  
-struct Books{
+struct Book{
     char isbn[15];
 	char title[50];
 	char author[50];
@@ -9,8 +9,8 @@ struct Books{
 };
  
 int main( ) {
-   struct Books book1;        /* Declare Book1 of type Book */
-   struct Books book2;        /* Declare Book2 of type Book */
+   struct Book book1;        /* Declare Book1 of type Book */
+   struct Book book2;        /* Declare Book2 of type Book */
  
    /* book 1 specification */
    strcpy(book1.isbn, "978-0131103627");

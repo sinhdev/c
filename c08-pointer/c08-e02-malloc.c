@@ -10,7 +10,7 @@ int main()
     scanf("%d", &count);
     
     //alloc memory
-    a = (int*)calloc(count*sizeof(int));
+    a = (int*)malloc(count*sizeof(int));
     
     //input array:
     for(i=0; i<count; i++){

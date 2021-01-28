@@ -1,21 +1,20 @@
 #include <stdio.h>
 #include <string.h>
  
-struct Books{
+struct Book{
     char isbn[15];
 	char title[51];
 	char author[51];
 	float price;
 };
 
-void printBook(struct Books book);
-struct Books getBook();
+void printBook(struct Book book);
+void printBooks(struct Book *books, int count);
+struct Book getBook();
 void getString(char *str, int length);
-void printLine();
-void printTitle();
 
 int main( ) {
-    struct Books books[3] = {
+    struct Book books[3] = {
 		{"978-0131103627", "The C Programming Language", "Dennis M. Ritchie", 52.89},
 		{"978-0789751980", "C Programming for Beginner", "Dean Miller", 24.32}
     };
@@ -24,17 +23,13 @@ int main( ) {
     printf("Input book 3:\n");
     books[2] = getBook();
    
-    printTitle();
-    for(i=0; i<count; i++){
-        printBook(books[i]);
-    }
-    printLine();
+    printBooks(books, count);
 
     return 0;
 }
 
-struct Books getBook(){
-    struct Books book;
+struct Book getBook(){
+    struct Book book;
     printf("Input Book isbn: ");
     getString(book.isbn, 14);
     printf("Input Book title: ");
@@ -46,19 +41,21 @@ struct Books getBook(){
     return book;
 }
 
-void printBook(struct Books book){
+void printBook(struct Book book){
     printf( "| %-14s | %-26s | %-20s | %6.2f |\n",
            book.isbn, book.title, book.author, book.price);
 }
-
-void printLine(){
+void printBooks(struct Book *books, int count){
     printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
         "--------------------------", "--------------------", "------");
-}
-void printTitle(){
-    printLine();
     printf( "| %-14s | %-26s | %-20s | %-6s |\n", "isbn", "Title", "Author", "Price");
-    printLine();
+    printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
+        "--------------------------", "--------------------", "------");
+    for(int i=0; i<count; i++){
+        printBook(books[i]);
+    }
+    printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
+        "--------------------------", "--------------------", "------");
 }
 
 void getString(char *str, int length){
@@ -74,4 +71,3 @@ void getString(char *str, int length){
     //clear keyboard buffer on Windows
     fflush(stdin);
 }
-

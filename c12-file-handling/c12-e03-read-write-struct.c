@@ -6,20 +6,19 @@ typedef struct{
 	char title[51];
 	char author[51];
 	float price;
-}Books;
+}Book;
 
-void printBook(Books book);
-Books getBook();
+void printBook(Book book);
+Book getBook();
 void getString(char *str, int length);
-void printLine();
-void printTitle();
+void printBooks(Book *books, int count);
 //function to read Books array from file
-int readBooksFromFile(Books *lstBooks, int *pCount, const char *fileName);
+int readBooksFromFile(Book *lstBooks, int *pCount, const char *fileName);
 //function to write Books array with count elements to file
-int writeBooksToFile(Books *lstBooks, int count, const char *fileName);
+int writeBooksToFile(Book *lstBooks, int count, const char *fileName);
 
 int main( ) {
-    Books books[100];
+    Book books[100];
     int i, count = 0;
     
     //read data from file
@@ -29,11 +28,7 @@ int main( ) {
     books[count] = getBook();
     count++;
    
-    printTitle();
-    for(i=0; i<count; i++){
-        printBook(books[i]);
-    }
-    printLine();
+    printBooks(books, count);
     
     //write data to file
     writeBooksToFile(books, count, "books.dat");
@@ -41,8 +36,8 @@ int main( ) {
     return 0;
 }
 
-Books getBook(){
-    Books book;
+Book getBook(){
+    Book book;
     printf("Input Book isbn: ");
     getString(book.isbn, 14);
     printf("Input Book title: ");
@@ -53,19 +48,21 @@ Books getBook(){
     scanf("%f", &book.price);
     return book;
 }
-void printBook(Books book){
+void printBook(Book book){
     printf( "| %-14s | %-26s | %-20s | %6.2f |\n",
            book.isbn, book.title, book.author, book.price);
 }
-void printLine(){
+void printBooks(Book *books, int count){
     printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
         "--------------------------", "--------------------", "------");
-}
-void printTitle(){
-    printLine();
-    printf( "| %-14s | %-26s | %-20s | %-6s |\n", "isbn", "Title",
-        "Author", "Price");
-    printLine();
+    printf( "| %-14s | %-26s | %-20s | %-6s |\n", "isbn", "Title", "Author", "Price");
+    printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
+        "--------------------------", "--------------------", "------");
+    for(int i=0; i<count; i++){
+        printBook(books[i]);
+    }
+    printf( "+-%-14s-+-%-26s-+-%-20s-+-%-6s-+\n", "--------------",
+        "--------------------------", "--------------------", "------");
 }
 void getString(char *str, int length){
     //clear keyboard buffer on UNIX
@@ -81,7 +78,7 @@ void getString(char *str, int length){
     fflush(stdin);
 }
 
-int readBooksFromFile(Books *lstBooks, int *pCount, const char *fileName){
+int readBooksFromFile(Book *lstBooks, int *pCount, const char *fileName){
     FILE *f;
     int result = 0;
     f = fopen(fileName, "rb");
@@ -90,7 +87,7 @@ int readBooksFromFile(Books *lstBooks, int *pCount, const char *fileName){
         fread(pCount, sizeof(int), 1, f);
         if(*pCount > 0){
             //read data in file to lstBooks
-            fread(lstBooks, sizeof(Books), *pCount, f);
+            fread(lstBooks, sizeof(Book), *pCount, f);
             result = 1;
         }
         //close file
@@ -99,7 +96,7 @@ int readBooksFromFile(Books *lstBooks, int *pCount, const char *fileName){
     return result;
 }
 
-int writeBooksToFile(Books *lstBooks, int count, const char *fileName){
+int writeBooksToFile(Book *lstBooks, int count, const char *fileName){
     FILE *f;
     int result = 0;
     f = fopen(fileName, "wb");
@@ -107,11 +104,10 @@ int writeBooksToFile(Books *lstBooks, int count, const char *fileName){
         //write count to file
         fwrite(&count, sizeof(int), 1, f);
         //write lstBooks to file
-        fwrite(lstBooks, sizeof(Books), count, f);
+        fwrite(lstBooks, sizeof(Book), count, f);
         //close file
         fclose(f);
         result = 1;
     }
     return result;
 }
-
